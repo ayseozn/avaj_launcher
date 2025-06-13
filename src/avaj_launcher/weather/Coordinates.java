@@ -1,5 +1,6 @@
 package avaj_launcher.weather;
 
+
 public class Coordinates {
     private int longitude;
     private int latitude;
@@ -9,7 +10,7 @@ public class Coordinates {
     {
         this.longitude = p_longitude;
         this.latitude = p_latitude;
-        this.height = p_height;
+        setHeight(p_height);
     }
     public int getLongitude()
     {
@@ -22,6 +23,24 @@ public class Coordinates {
     public int getHeight()
     {
         return height;
+    }
+
+    public void setHeight(int height) {
+        if (height < 0) {
+            this.height = 0; // Height cannot be negative
+        }
+        else if (height > 100) {
+            this.height = 100; // Maximum height is 100
+        } 
+        else {
+            this.height = height;
+        }
+    }
+    public void setLongitude(int longitude) {
+        this.longitude = longitude;
+    }
+    public void setLatitude(int latitude) {
+        this.latitude = latitude;
     }
 }
 

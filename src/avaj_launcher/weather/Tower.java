@@ -12,20 +12,28 @@ public class Tower
         if (p_flyable == null)
             throw new IllegalArgumentException("Flyable cannot be null.");
         observers.add(p_flyable);
-        // System.out.println("Tower says: " + p_flyable.toString() + " registered to weather tower.");
-        for(Flyable car : observers)
-        {
-            System.out.println("Registered Flyable: " + car.getClass().getSimpleName() + " - " + car.toString());
-            System.out.println(observers.size());
-        }
+        System.out.println("Tower says: " + p_flyable.toString() + " registered to weather tower.");
+        // for(Flyable car : observers)
+        // {
+        //     System.out.println("Registered Flyable: " + car.getClass().getSimpleName() + " - " + car.toString());
+        //     System.out.println(observers.size());
+        // }
     }
     public void unregister(Flyable p_flyable) {
         if (p_flyable == null) {
             throw new IllegalArgumentException("Flyable cannot be null.");
         }
         observers.remove(p_flyable);
+        System.out.println("Tower says: " + p_flyable.toString() + " unregistered from weather tower.");
+
     }
-    // conditionChanged()
+    protected void conditionChanged() {
+
+        List<Flyable> observersCopy = new ArrayList<>(observers); // listeden uçak çıkartırken for-each devam ettiği için çatışıp exception fıstalabiliyor
+        for (Flyable flyable : observersCopy) {
+            flyable.updateConditions();
+        }
+    }
 }
 
 

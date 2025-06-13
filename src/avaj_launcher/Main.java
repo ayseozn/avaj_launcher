@@ -24,10 +24,8 @@ public class Main {
                 // buradaki throw uygun mu bilmiyorum bak unutma
             }
             String simulationFile = args[0];
-            // System.out.println("Simulation file: " + simulationFile);
             
-            List<String> lines;
-            lines = readFile(simulationFile);
+            List<String> lines = readFile(simulationFile);
             // if (lines.isEmpty())
             // {// exception fırlatılacak.
             // } içi boşsa sıfırıncı satır olmayacağı için lines.get(0) de exception fırlatacak sanki buna gerek yok
@@ -41,6 +39,7 @@ public class Main {
             
             WeatherTower weatherTower = new WeatherTower();
 
+            //for  Tüm satırları dolaşacak ilk satır ve boş satırları atlayacak satırları parslayacak type name ve kordinatlara göre yeni uçak oluşturacak bu uçağı kuleye kaydedecek ve bunu bilgidicek
             for(String line : lines) {
                 if (line.isEmpty() || line == lines.get(0))
                 {
@@ -49,39 +48,44 @@ public class Main {
                 }
                 
                 String[] parts = line.split(" ");
-                if (parts.length != 5) {
+                if (parts.length != 5) 
                     throw new IllegalArgumentException("Each line must contain at least three parts: type, name, and coordinates.");
-                }
 
                 String type = parts[0];
                 String name = parts[1];
                 int longitude = Integer.parseInt(parts[2]);
                 int latitude = Integer.parseInt(parts[3]);
                 int height = Integer.parseInt(parts[4]);
-                
+                if (height < 0) // height negatif ise exception fırlatılacak
+                {
+                    System.out.println("yükseklik 0 atlandığı için uçak atla");
+                    continue;
+                    // throw new IllegalArgumentException("Height cannot be negative.");
+                }
                 // Coordinates coordinates = new Coordinates(longitude, latitude, height);
                 // System.out.println("Type: " + type + ", Name: " + name + ", Coordinates: (" + longitude + ", " + latitude + ", " + height + ")");
                 // System.out.println(coordinates.getLongitude() + " " + coordinates.getLatitude() + " " + coordinates.getHeight());
                 
                 // AircraftFactory sınıfından yeni bir uçak oluşturma
                 Flyable aircraft = AircraftFactory.getInstance().newAircraft(type, name, new Coordinates(longitude, latitude, height));
-                if (aircraft == null)
+                if (aircraft == null){
+                    // bilemedim ya gereksiz hissettirdi doğru exception türümü oda şaibeli
                     throw new IllegalArgumentException("Invalid aircraft type: " + type);
+                }
 
                 // uçağı hava kulesine kaydet ve kayıt mesajını atmak için
                 aircraft.registerTower(weatherTower);
-
-
-
-
-        
             }
 
-            // for(int i = 1; i <= firtLine; i++)
-            // {
-            //     // ilk satırdaki sayıya göre döngü çalışacak işlemlerin kaç defa tekrarlayacağını belirleyecek
-               
-            // }
+            for(int i = 1; i <= firtLine; i++)
+            {
+                // ilk satırdaki sayıya göre döngü çalışacak işlemlerin kaç defa tekrarlayacağını belirleyecek
+                // şahsen
+                // hava durumu belirlenecek
+                // hava durumuna göre uçaklar koordinat güncellemesi yapacak
+               System.out.print("\n\nSimulation step: " + i + " - \n\n");
+                weatherTower.changeWeather();
+            }
             System.out.println(Runtime.getRuntime().freeMemory()); // JVM'nin boş bellek miktarını kontrol etme (isteğe bağlı)
         }
         catch (IOException e) {

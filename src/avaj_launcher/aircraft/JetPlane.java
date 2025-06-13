@@ -7,10 +7,30 @@ public class JetPlane extends Aircraft {
         super(p_id, p_name, p_coordinate);
     }
     public void updateConditions() {
-        // Update the jet plane's conditions based on the weather
-        // Implement the logic for updating conditions based on weather
-        // For example, increase latitude by 10 in SUN, increase height by 2 in SNOW, etc.
-        System.out.println("JetPlane " + name + " is updating conditions based on weather.");
+        switch(weatherTower.getWeather(coordinates)) {
+            case "SUN":
+                coordinates.setLatitude(coordinates.getLatitude() + 10);
+                coordinates.setHeight(coordinates.getHeight() + 2);
+                System.out.println("JetPlane#" + name + "(" + id + "): It's sunny, let's fly high!");
+                break;
+            case "RAIN":
+                coordinates.setLatitude(coordinates.getLatitude() + 5);
+                System.out.println("JetPlane#" + name + "(" + id + "): It's raining, we need to be careful!");
+                break;
+            case "FOG":
+                coordinates.setLatitude(coordinates.getLatitude() + 1);
+                System.out.println("JetPlane#" + name + "(" + id + "): It's foggy, we need to be cautious!");
+                break;
+            case "SNOW":
+                coordinates.setHeight(coordinates.getHeight() - 7);
+                System.out.println("JetPlane#" + name + "(" + id + "): It's snowing, we need to go down!");
+                break;
+        }
+        if (coordinates.getHeight() <= 0) {
+            weatherTower.unregister(this);
+            // burada mesajlar dosyaya yazılacak
+            System.out.println("JetPlane#" + name + "(" + id + ") has landed.");
+        }
     }
     public String toString() {
         return "JetPlane#" + name + "(" + id + ")";

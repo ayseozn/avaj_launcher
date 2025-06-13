@@ -7,10 +7,32 @@ public class Helicopter extends Aircraft {
     public Helicopter(long p_id, String p_name, Coordinates p_coordinate){
         super(p_id, p_name, p_coordinate);
     }
-    public void updateConditions() {
-        // Update the helicopter's conditions based on the weather
-        // Implement the logic for updating conditions based on weather
-        // For example, increase longitude by 10 in SUN, decrease height by 12 in SNOW, etc.
+    public void updateConditions() 
+    {
+        switch (weatherTower.getWeather(coordinates)) {
+            case "SUN":
+                coordinates.setLongitude(coordinates.getLongitude() + 10);
+                coordinates.setHeight(coordinates.getHeight() + 2);
+                System.out.println("Helicopter#" + name + "(" + id + "): It's sunny, let's fly higher!");
+                break;
+            case "RAIN":
+                coordinates.setLongitude(coordinates.getLongitude() + 5);
+                System.out.println("Helicopter#" + name + "(" + id + "): It's raining, we need to be careful!");
+                break;
+            case "FOG":
+                coordinates.setLongitude(coordinates.getLongitude() + 1);
+                System.out.println("Helicopter#" + name + "(" + id + "): It's foggy, we need to be cautious!");
+                break;
+            case "SNOW":
+                coordinates.setHeight(coordinates.getHeight() - 12);
+                System.out.println("Helicopter#" + name + "(" + id + "): It's snowing, we need to go down!");
+                break;
+        }
+        if (coordinates.getHeight() <= 0) {
+            weatherTower.unregister(this);
+            // burada mesajlar dosyaya yazılacak
+            System.out.println("Helicopter#" + name + "(" + id + ") has landed.");
+        }
     }
     public String toString()
     {

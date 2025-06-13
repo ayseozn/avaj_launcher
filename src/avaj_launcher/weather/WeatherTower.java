@@ -4,12 +4,12 @@ public class WeatherTower extends Tower {
     public String getWeather(Coordinates p_coordinates) 
     {
         // verilen koordinatlara göre hava durumunu döndürür
-        return "SUN"; // Example weather condition
+        return WeatherProvider.getInstance().getCurrentWeather(p_coordinates);
     }
     
     public void changeWeather() 
     {
-        // sistemdeki hava durumunu değiştirir
+        conditionChanged();
     }
 }
 

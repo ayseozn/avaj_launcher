@@ -1,6 +1,7 @@
 package avaj_launcher.aircraft;
 
 import avaj_launcher.weather.Coordinates;
+import avaj_launcher.exceptions.OutputWrite;
 
 public class Helicopter extends Aircraft {
     // Helicopter sınıfı Aircraft sınıfından miras alır
@@ -13,25 +14,24 @@ public class Helicopter extends Aircraft {
             case "SUN":
                 coordinates.setLongitude(coordinates.getLongitude() + 10);
                 coordinates.setHeight(coordinates.getHeight() + 2);
-                System.out.println("Helicopter#" + name + "(" + id + "): It's sunny, let's fly higher!");
+                OutputWrite.write("Helicopter#" + name + "(" + id + "): It's sunny, let's fly higher!");
                 break;
             case "RAIN":
                 coordinates.setLongitude(coordinates.getLongitude() + 5);
-                System.out.println("Helicopter#" + name + "(" + id + "): It's raining, we need to be careful!");
+                OutputWrite.write("Helicopter#" + name + "(" + id + "): It's raining, we need to be careful!");
                 break;
             case "FOG":
                 coordinates.setLongitude(coordinates.getLongitude() + 1);
-                System.out.println("Helicopter#" + name + "(" + id + "): It's foggy, we need to be cautious!");
+                OutputWrite.write("Helicopter#" + name + "(" + id + "): It's foggy, we need to be cautious!");
                 break;
             case "SNOW":
                 coordinates.setHeight(coordinates.getHeight() - 12);
-                System.out.println("Helicopter#" + name + "(" + id + "): It's snowing, we need to go down!");
+                OutputWrite.write("Helicopter#" + name + "(" + id + "): It's snowing, we need to go down!");
                 break;
         }
         if (coordinates.getHeight() <= 0) {
             weatherTower.unregister(this);
-            // burada mesajlar dosyaya yazılacak
-            System.out.println("Helicopter#" + name + "(" + id + ") has landed.");
+            OutputWrite.write("Helicopter#" + name + "(" + id + ") has landed.");
         }
     }
     public String toString()

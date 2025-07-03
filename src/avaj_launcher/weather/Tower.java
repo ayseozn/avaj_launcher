@@ -1,18 +1,22 @@
 package avaj_launcher.weather;
+// import java.io.IOError;
+// import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import avaj_launcher.aircraft.Flyable;
+import avaj_launcher.exceptions.OutputWrite;
 
 public class Tower
 {
     private List<Flyable> observers = new ArrayList<>(); // new ArrayList<Flyable>(); yapmayınca observers.add(p_flyable); bu satır exception fırlatıyor. Hata türü: java.lang.NullPointerException,  Error: null
 
-    public void register(Flyable p_flyable) {
+    public void register(Flyable p_flyable)
+    {
         if (p_flyable == null)
             throw new IllegalArgumentException("Flyable cannot be null.");
         observers.add(p_flyable);
-        System.out.println("Tower says: " + p_flyable.toString() + " registered to weather tower.");
+        OutputWrite.write("Tower says: " + p_flyable.toString() + " registered to weather tower.");
         // for(Flyable car : observers)
         // {
         //     System.out.println("Registered Flyable: " + car.getClass().getSimpleName() + " - " + car.toString());
@@ -24,7 +28,7 @@ public class Tower
             throw new IllegalArgumentException("Flyable cannot be null.");
         }
         observers.remove(p_flyable);
-        System.out.println("Tower says: " + p_flyable.toString() + " unregistered from weather tower.");
+        OutputWrite.write("Tower says: " + p_flyable.toString() + " unregistered from weather tower.");
 
     }
     protected void conditionChanged() {

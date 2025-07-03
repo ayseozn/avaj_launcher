@@ -7,6 +7,7 @@ import avaj_launcher.simulator.AircraftFactory;
 import avaj_launcher.weather.Coordinates;
 // import avaj_launcher.weather.Tower;
 import avaj_launcher.weather.WeatherTower;
+import avaj_launcher.exceptions.OutputWrite;
 
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -34,16 +35,16 @@ public class Main {
             // satır sayı değilse exception fırlatılacak.(IllegalArgumentException)
             // get(0) indexi yoksa exception fırlatılacak.(IndexOutOfBoundsException)(şimdilik özel catch açmadım genel olana gidiyo)
             if (firtLine < 0) // ilk satır negatif sayı ise exception fırlatılacak. çünkü simülasyonun tekrar sayısı
-            throw new IllegalArgumentException("First line must be a positive integer.");
+                throw new IllegalArgumentException("First line must be a positive integer.");
             
             
             WeatherTower weatherTower = new WeatherTower();
+            OutputWrite.init("simulation.txt"); // çıktı dosyasını başlatma
 
             //for  Tüm satırları dolaşacak ilk satır ve boş satırları atlayacak satırları parslayacak type name ve kordinatlara göre yeni uçak oluşturacak bu uçağı kuleye kaydedecek ve bunu bilgidicek
             for(String line : lines) {
                 if (line.isEmpty() || line == lines.get(0))
                 {
-                    // System.out.println("boş veya ilk satır atlandı");
                     continue; // boş satırları ve ilk satırı atla
                 }
                 
@@ -58,13 +59,10 @@ public class Main {
                 int height = Integer.parseInt(parts[4]);
                 if (height < 0) // height negatif ise exception fırlatılacak
                 {
-                    System.out.println("yükseklik 0 atlandığı için uçak atla");
+                    System.out.println("yükseklik 0 atandığı için uçak atla");
                     continue;
                     // throw new IllegalArgumentException("Height cannot be negative.");
                 }
-                // Coordinates coordinates = new Coordinates(longitude, latitude, height);
-                // System.out.println("Type: " + type + ", Name: " + name + ", Coordinates: (" + longitude + ", " + latitude + ", " + height + ")");
-                // System.out.println(coordinates.getLongitude() + " " + coordinates.getLatitude() + " " + coordinates.getHeight());
                 
                 // AircraftFactory sınıfından yeni bir uçak oluşturma
                 Flyable aircraft = AircraftFactory.getInstance().newAircraft(type, name, new Coordinates(longitude, latitude, height));
@@ -83,10 +81,9 @@ public class Main {
                 // şahsen
                 // hava durumu belirlenecek
                 // hava durumuna göre uçaklar koordinat güncellemesi yapacak
-               System.out.print("\n\nSimulation step: " + i + " - \n\n");
                 weatherTower.changeWeather();
             }
-            System.out.println(Runtime.getRuntime().freeMemory()); // JVM'nin boş bellek miktarını kontrol etme (isteğe bağlı)
+            // System.out.println(Runtime.getRuntime().freeMemory()); // JVM'nin boş bellek miktarını kontrol etme (isteğe bağlı)
         }
         catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
@@ -96,9 +93,16 @@ public class Main {
         }
         catch (Exception e) // lines.get(0) satırı bulamazsa
         {
-            System.out.println("Hata türü: " + e.getClass().getName());
+            System.out.println("Error Type: " + e.getClass().getName());
             System.out.println("Error: " + e.getMessage());
             // System.out.println("Error:: " + e.getClass().getName() + " - " + e.getMessage());
+        }
+        finally {
+            try {
+                OutputWrite.close(); // çıktı dosyasını kapatma
+            } catch (IOException e) {
+                System.out.println("Error closing output file: " + e.getMessage());
+            }
         }
     }
 

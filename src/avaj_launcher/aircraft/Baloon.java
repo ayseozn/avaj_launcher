@@ -1,5 +1,6 @@
 package avaj_launcher.aircraft;
 import avaj_launcher.weather.Coordinates;
+import avaj_launcher.exceptions.OutputWrite;
 
 public class Baloon extends Aircraft
 {
@@ -14,25 +15,25 @@ public class Baloon extends Aircraft
             case "SUN":
                 coordinates.setLongitude(coordinates.getLongitude() + 2);
                 coordinates.setHeight(coordinates.getHeight() + 4);
-                System.out.println("Baloon#" + name + "(" + id + "): It's sunny, let's go higher!");
+                OutputWrite.write("Baloon#" + name + "(" + id + "): It's sunny, let's go higher!");
                 break;
             case "RAIN":
                 coordinates.setHeight(coordinates.getHeight() - 5);
-                System.out.println("Baloon#" + name + "(" + id + "): It's raining, we need to go down!");
+                OutputWrite.write("Baloon#" + name + "(" + id + "): It's raining, we need to go down!");
                 break;
             case "FOG":
                 coordinates.setHeight(coordinates.getHeight() - 3);
-                System.out.println("Baloon#" + name + "(" + id + "): It's foggy, we need to go down!");
+                OutputWrite.write("Baloon#" + name + "(" + id + "): It's foggy, we need to go down!");
                 break;
             case "SNOW":
                 coordinates.setHeight(coordinates.getHeight() - 15);
-                System.out.println("Baloon#" + name + "(" + id + "): It's snowing, we need to go down!");
+                OutputWrite.write("Baloon#" + name + "(" + id + "): It's snowing, we need to go down!");
                 break;
         }
         if (coordinates.getHeight() <= 0) {
             weatherTower.unregister(this);
             // burada mesajlar dosyaya yazılacak
-            System.out.println("Baloon#" + name + "(" + id + ") has landed.");
+            OutputWrite.write("Baloon#" + name + "(" + id + ") has landed.");
         }
     }
     public String toString() {

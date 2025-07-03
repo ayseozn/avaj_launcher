@@ -10,7 +10,6 @@ public abstract class Flyable
     public void registerTower(WeatherTower p_tower){
         weatherTower = p_tower;
         p_tower.register(this);
-        // System.out.println("Tower says: "  + toString() + " registered to weather tower.");
     }
 }
 

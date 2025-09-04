@@ -6,14 +6,10 @@ import avaj_launcher.aircraft.JetPlane;
 import avaj_launcher.weather.Coordinates;
 
 public class AircraftFactory {
-    private static AircraftFactory instance = null; // Static variable to hold the single instance of AircraftFactory
-    // Static değişken, AircraftFactory'nin tek örneğini tutmak için
-    private static long p_id = 0; // Static variable to keep track of the last assigned ID
-    // Static değişken, son atanan ID'yi takip etmek için
+    private static AircraftFactory instance = null;
+    private static long p_id = 0;
 
     private AircraftFactory() {
-        // Private constructor to prevent instantiation
-        // Örneklemeyi önlemek için özel kurucu
     }
 
     public static AircraftFactory getInstance() {
@@ -41,10 +37,8 @@ public class AircraftFactory {
             default:
                 throw new IllegalArgumentException("Unknown aircraft type: " + p_type);
         }
-
         return aircraft;
     }
-
 }
 
 
@@ -70,3 +64,7 @@ public class AircraftFactory {
 // Static member’a ulaşmak için static bir metot oluşturulmalıdır.
 // Örneğin;
 // public static Singleton getInstance() { … return instance; }
+
+// Factory Method Design Pattern
+// Kelime anlamı “Fabrika Metodu” olan Factory Method, üst sınıfta nesneler oluşturmak için bir arabirim sağlayan, 
+// ancak alt sınıfların oluşturulacak bu nesne türünü değiştirmesine izin veren bir yaratımsal desen (creational pattern) türüdür.

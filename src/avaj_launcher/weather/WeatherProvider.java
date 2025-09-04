@@ -5,7 +5,6 @@ public class WeatherProvider {
     private String[] weather = {"SUN", "RAIN", "FOG", "SNOW"};
 
     private WeatherProvider() {
-        // Private constructor to prevent instantiation
     }
 
     public static WeatherProvider getInstance() {
@@ -19,12 +18,7 @@ public class WeatherProvider {
         int index = (p_coordinates.getLongitude() + p_coordinates.getLatitude() + p_coordinates.getHeight()) % weather.length;
         return weather[index];
     }
-    
-
-
-    
 }
-
 
 
 // class WeatherProvider <<Singleton>>

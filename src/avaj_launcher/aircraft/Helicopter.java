@@ -4,7 +4,7 @@ import avaj_launcher.weather.Coordinates;
 import avaj_launcher.exceptions.OutputWrite;
 
 public class Helicopter extends Aircraft {
-    // Helicopter sınıfı Aircraft sınıfından miras alır
+    
     public Helicopter(long p_id, String p_name, Coordinates p_coordinate){
         super(p_id, p_name, p_coordinate);
     }
@@ -39,7 +39,6 @@ public class Helicopter extends Aircraft {
         return "Helicopter#" + name + "(" + id + ")";
     }
 }
-
 
 // class Helicopter
 // {

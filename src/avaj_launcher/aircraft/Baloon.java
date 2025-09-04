@@ -2,8 +2,8 @@ package avaj_launcher.aircraft;
 import avaj_launcher.weather.Coordinates;
 import avaj_launcher.exceptions.OutputWrite;
 
-public class Baloon extends Aircraft
-{
+public class Baloon extends Aircraft{
+    
     public Baloon(long p_id, String p_name, Coordinates p_coordinate)
     {
         super(p_id, p_name, p_coordinate);
@@ -32,7 +32,6 @@ public class Baloon extends Aircraft
         }
         if (coordinates.getHeight() <= 0) {
             weatherTower.unregister(this);
-            // burada mesajlar dosyaya yazılacak
             OutputWrite.write("Baloon#" + name + "(" + id + ") has landed.");
         }
     }
@@ -40,7 +39,6 @@ public class Baloon extends Aircraft
         return "Baloon#" + name + "(" + id + ")";
     }
 }
-
 
 // class Baloon
 // {

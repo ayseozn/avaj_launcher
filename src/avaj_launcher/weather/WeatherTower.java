@@ -3,7 +3,6 @@ package avaj_launcher.weather;
 public class WeatherTower extends Tower {
     public String getWeather(Coordinates p_coordinates) 
     {
-        // verilen koordinatlara göre hava durumunu döndürür
         return WeatherProvider.getInstance().getCurrentWeather(p_coordinates);
     }
     

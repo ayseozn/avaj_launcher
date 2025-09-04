@@ -13,7 +13,6 @@ public abstract class Flyable
     }
 }
 
-
 // abstract Flyable
 // {
 // #WeatherTower weatherTower

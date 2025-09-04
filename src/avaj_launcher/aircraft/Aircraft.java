@@ -1,7 +1,6 @@
 package avaj_launcher.aircraft;
 import avaj_launcher.weather.Coordinates;
 
-
 public abstract class Aircraft extends Flyable{
     
     protected long id;
@@ -14,10 +13,7 @@ public abstract class Aircraft extends Flyable{
         name = p_name;
         coordinates = p_coordinate;
     }
-
 }
-
-
 
 // class Aircraft
 // {

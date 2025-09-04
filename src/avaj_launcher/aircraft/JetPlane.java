@@ -37,7 +37,6 @@ public class JetPlane extends Aircraft {
     }
 }
 
-
 // class JetPlane
 // {
 // +JetPlane(long p_id, string p_name, Coordinates p_coordinate)
